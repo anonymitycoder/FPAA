@@ -9,6 +9,7 @@ Environmental Sound Classification" for ICME2024.
 </div>
 
 ## Requirements
+
 ````
 numpy==1.26.2
 librosa==0.10.1
@@ -23,17 +24,26 @@ scipy==1.11.4
 ````
 
 ## Training Model
+
 Train two models including VGG13 and VGG16.
+
 ```
 cd FreqPsyAttack
 python train_model.py --dataset Urban8K --model VGG13 --batch_size 32 --num_epochs 100 --lr 0.0001
 ```
+
 ## Select a portion of the data that each model can predict successfully
 
-
+We have already completed this step for you and saved it under the `urban8K_data` and `esc_data`. Specifically, we
+filter 50 data per class in the UrbanSound8K dataset, and select 10 data per class in the ESC-50 dataset.
 
 ## Generate adversarial examples
-We use four attack algorithms to generate adversarial examples, including FGSM, BIM, PGD, and our proposed FPAA. The following is an example. If you run the method we proposed, you need to specify the values ​​of lr_stage, num_iter_stage, and alpha. The other methods do not need to be specifically specified (because these parameters are the parameters used in the method we proposed).
+
+We use four attack algorithms to generate adversarial examples, including FGSM, BIM, PGD, and our proposed FPAA. The
+following is an example. If you run the method we proposed, you need to specify the values of lr_stage, num_iter_stage,
+and alpha. The other methods do not need to be specifically specified (because these parameters are the parameters used
+in the method we proposed).
+
 ```
 python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter_stage 500 --epsilon 0.1 --attack_method PGD_freq --save_path adv_example --alpha 0.07
 ```
