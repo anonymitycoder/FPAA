@@ -25,8 +25,14 @@ scipy==1.11.4
 
 ## Training Model
 
-Train two models including VGG13 and VGG16.
+Train two models including VGG13 and VGG16. Please download the dataset from the following link and put it in the
+`dataset` folder. 
 
+[UrbanSound8K](https://www.kaggle.com/datasets/chrisfilo/urbansound8k)
+
+[ESC-50](https://github.com/karolpiczak/ESC-50)
+
+Below is an example.
 ```
 cd FreqPsyAttack
 python train_model.py --dataset Urban8K --model VGG13 --batch_size 32 --num_epochs 100 --lr 0.0001
@@ -47,3 +53,4 @@ in the method we proposed).
 ```
 python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter_stage 500 --epsilon 0.1 --attack_method PGD_freq --save_path adv_example --alpha 0.07
 ```
+We have generated adversarial examples on the ESC-50 data set.
