@@ -34,7 +34,7 @@ Train two models including VGG13 and VGG16. Please download the dataset from the
 
 Below is an example.
 ```
-cd FreqPsyAttack
+cd FPAA
 python train_model.py --dataset Urban8K --model VGG13 --batch_size 32 --num_epochs 100 --lr 0.0001
 ```
 
