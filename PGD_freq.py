@@ -10,7 +10,6 @@ from foolbox.criteria import Misclassification, TargetedMisclassification
 from foolbox.models.base import Model
 from tqdm import tqdm
 
-
 class PGD_freq(LinfBaseGradientDescent):
     def __init__(
             self,
@@ -20,6 +19,15 @@ class PGD_freq(LinfBaseGradientDescent):
             steps: int = 40,
             random_start: bool = True,
     ):
+        """
+        Initialize the PGD_freq attack.
+
+        Parameters:
+        - rel_stepsize: The relative step size for each iteration.
+        - abs_stepsize: The absolute step size for each iteration.
+        - steps: The number of optimization steps.
+        - random_start: Whether to start the optimization from a random point.
+        """
         super().__init__(
             rel_stepsize=rel_stepsize,
             abs_stepsize=abs_stepsize,
@@ -36,8 +44,21 @@ class PGD_freq(LinfBaseGradientDescent):
             epsilon: float,
             lamb: float = None,
             **kwargs: Any,
-
     ) -> T:
+        """
+        Run the PGD_freq attack.
+
+        Parameters:
+        - model: The model to attack.
+        - inputs: The input samples to attack.
+        - criterion: The criterion to maximize or minimize.
+        - epsilon: The maximum perturbation allowed.
+        - lamb: Not used in this implementation.
+        - kwargs: Additional keyword arguments.
+
+        Returns:
+        - T: The perturbed input samples.
+        """
         raise_if_kwargs(kwargs)
         x0, restore_type = ep.astensor_(inputs)
         criterion_ = get_criterion(criterion)
