@@ -57,7 +57,15 @@ We have generated adversarial examples on the ESC-50 data set.
   <img src="ablation.png" width="1000px" />
 </div>
 
-|**models**|     **PGD**     |   **PGD+Freqs**   |   **PGD+Psy**   |  PGD+Freqs+Psy    |        |
-|:--------:| :-------------: | -----------: | -------------------------------------------: | ---------------------------------------------: | :---------------:|
-|              |                     |                                        |                                  |                                    62% (82ms) |                    |
-0.5<br /> (429ms) | 70% / 0.5<br /> (4777ms) |                           |
+**Ablation experimental results on UrbanSound8K.**
+
+| Models   | Methods            | SNR   | STOI   | SNR   | STOI   | SNR   | STOI   | SNR   | STOI   |
+|----------|--------------------|-------|--------|-------|--------|-------|--------|-------|--------|
+|          |                    | PGD   |        | PGD+Freqs |        | PGD+Psy |        | PGD+Freqs+Psy |
+| VGG13    |                    |       |        |           |        |           |        |           |
+|          | SNR                | STOI  | SNR    | STOI   | SNR    | STOI   | SNR    | STOI   |
+|          | 30.28              | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | 44.53  | 0.9657 |
+| VGG16    |                    |       |        |           |        |           |        |           |
+|          | SNR                | STOI  | SNR    | STOI   | SNR    | STOI   | SNR    | STOI   |
+|          | 30.69              | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | 44.46  | 0.9644 |
+
