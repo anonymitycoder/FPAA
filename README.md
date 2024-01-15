@@ -39,8 +39,7 @@ python train_model.py --dataset Urban8K --model VGG13 --batch_size 32 --num_epoc
 
 ## Select a portion of the data that each model can predict successfully
 
-We have already completed this step for you and saved it under the `urban8K_data` and `esc_data`. Specifically, we
-filter 50 data per class in the UrbanSound8K dataset, and select 10 data per class in the ESC-50 dataset.
+We filter the ESC-50 dataset and store the results in the variable "esc_data". However, you need to filter the UrbanSound8K data set yourself. More specifically, in the UrbanSound8K dataset, please filter 50 data per category, while in the ESC-50 dataset, please select 10 data per category.
 
 ## Generate adversarial examples
 
