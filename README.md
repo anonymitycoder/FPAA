@@ -1,7 +1,6 @@
 # BOOSTING IMPERCEPTIBILITY OF ADVERSARIAL ATTACKS FOR ENVIRONMENTAL SOUND CLASSIFICATION
 
-This is the code submitted for the anonymously submitted paper "Boosting Imperceptibility of Adversarial Attacks for
-Environmental Sound Classification" for ICME2024.
+This code is the submission for the anonymously submitted paper titled 'Boosting Imperceptibility of Adversarial Attacks for Environmental Sound Classification' to ICME2024.
 
 <div align="center">
   <img src="framework.png" width="1000px" />
