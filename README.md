@@ -56,11 +56,11 @@ python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter
 ```
 We have generated adversarial examples on the ESC-50 data set.
 ## Ablation Experiment
-The following ablation experiments were performed on UrbanSound8K using VGG13. We add frequency curves, psychoacoustic models, and a combination of the two based on PGD. It can be seen that the effect we proposed is the best.
+The following ablation experiments were performed on UrbanSound8K using VGG13 and VGG16. We add frequency curves, psychoacoustic models, and a combination of the two based on PGD. It can be seen that the effect we proposed is the best.
 
-| Models   | Methods      | PGD   |        | PGD+Freqs |        | PGD+Psy   |        | PGD+Freqs+Psy   |        |
-|----------|--------------|-------|--------|-----------|--------|-----------|--------|-----------------|--------|
-|          |              | SNR   |   STOI |SNR        |   STOI |SNR        |   STOI | SNR             | STOI   |
-| VGG13    |              | 30.28        | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | **44.53**  | **0.9657** |
-| VGG16    |              | 30.69        | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | **44.46**  | **0.9644** |
+|   Methods      | PGD   |        | PGD+Freqs |        | PGD+Psy   |        | PGD+Freqs+Psy   |        |
+|------------------------|-------|--------|-----------|--------|-----------|--------|-----------------|--------|
+|                       | SNR   |   STOI |SNR        |   STOI |SNR        |   STOI | SNR             | STOI   |
+| VGG13                | 30.28        | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | **44.53**  | **0.9657** |
+| VGG16                | 30.69        | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | **44.46**  | **0.9644** |
 
