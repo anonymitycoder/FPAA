@@ -55,7 +55,7 @@ python run_attack.py --dataset Urban8K --model VGG13 --epsilon 0.1 --attack_meth
 python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter_stage 500 --epsilon 0.1 --attack_method PGD_freq_psy --save_path adv_example --alpha 0.07
 ```
 We have generated adversarial examples on the ESC-50 data set.
-## Ablation Experiment
+## Ablation experiment
 The following ablation experiments were performed on UrbanSound8K using VGG13 and VGG16. We add frequency curves, psychoacoustic models, and a combination of the two based on PGD. It can be seen that the effect we proposed is the best.
 
 |   Methods      | PGD   |        | PGD+Freqs |        | PGD+Psy   |        | PGD+Freqs+Psy   |        |
