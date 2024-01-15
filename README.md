@@ -61,11 +61,7 @@ We have generated adversarial examples on the ESC-50 data set.
 
 | Models   | Methods      | PGD   |        | PGD+Freqs |        | PGD+Psy   |        | PGD+Freqs+Psy   |        |
 |----------|--------------|-------|--------|-----------|--------|-----------|--------|-----------------|--------|
-|          |              | SNR   |   STOI |SNR        |   STOI |SNR        |   STOI | SNR             |        |
-| VGG13    |              |       |        |           |        |           |        |           |
-|          | SNR          | STOI  | SNR    | STOI   | SNR    | STOI   | SNR    | STOI   |
-|          | 30.28        | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | 44.53  | 0.9657 |
-| VGG16    |              |       |        |           |        |           |        |           |
-|          | SNR          | STOI  | SNR    | STOI   | SNR    | STOI   | SNR    | STOI   |
-|          | 30.69        | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | 44.46  | 0.9644 |
+|          |              | SNR   |   STOI |SNR        |   STOI |SNR        |   STOI | SNR             | STOI   |
+| VGG13    | 30.28        | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | 44.53  | 0.9657 |
+| VGG16    | 30.69        | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | 44.46  | 0.9644 |
 
