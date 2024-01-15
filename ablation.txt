@@ -1,6 +1,0 @@
-Dataset Model Attack_method SNR Stoi
-
-Urban8K VGG13 PGD_freq_psy 44.53 0.9657
-Urban8K VGG13 PGD_psy 44.21 0.9657
-Urban8K VGG13 PGD_freq 30.39 0.9406
-Urban8K VGG13 PGD 30.28 0.9395
