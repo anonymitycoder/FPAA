@@ -44,9 +44,8 @@ Here, $t$ denotes the iteration number, and $\Pi_{x+\mathcal{S}}$ is a projectio
 
 The optimization of the created perturbations $\delta$ culminates in the final psychoacoustic module, where we employ the following equation:
 
-$$
-\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \{\bar{p}_\delta(k)-\theta_x(k), 0\}
-$$
+$$ \mathcal{L}\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max {\bar{p}_\delta(k)-\theta_x(k), 0} $$
+
 
 In this formula, $\bar{p}_\delta(k)$ is the normalized PSD estimation of the perturbation. The loss function $\mathcal{L}_\theta$ is designed to ensure that $\bar{p}_\delta(k)$ remains below the frequency masking threshold $\theta_x(k)$ of the original spectrum.
 
