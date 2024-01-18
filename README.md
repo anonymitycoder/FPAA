@@ -51,9 +51,8 @@ In this formula, $\bar{p}_\delta(k)$ is the normalized PSD estimation of the per
 
 The comprehensive loss function that guides our optimization is composed of two distinct parts:
 
-$$
-\mathcal{L}(x, y,\delta)=-\mathcal{L}_{nn}(x+\delta, y)+\alpha \cdot \mathcal{L}_\theta(x+\delta, \delta)
-$$
+$$ \mathcal{L}_{\theta}(x, y, \delta) = -\mathcal{L}_{nn}(x + \delta, y) + \alpha \cdot \mathcal{L}_{\theta}(x + \delta, \delta) $$
+
 
 where $\alpha$ is a parameter that balances the significance of these two loss components, harmonizing the trade-off between the effectiveness of the adversarial perturbation and its imperceptibility within the psychoacoustic constraints.
 
