@@ -10,7 +10,7 @@ This code is the submission for the anonymously submitted paper titled 'Boosting
 
 The conceptual blueprint of our proposed methodology is depicted in Figure~\ref{framework}. We will delve into its intricate components in the ensuing chapters. Initially, the process involves the creation of a nascent adversarial example. This is achieved by synergizing frequency-aware weighting with a gradient-based technique for adversarial attacks, a vital characteristic of the FPAA. The adversarial samples crafted in this phase are finely tuned to align with the frequency perception nuances of the human auditory system, embodying the psychoacoustic principles central to our method. Following this, the focus shifts to refining these adversarial examples, enhancing their stealth, and ensuring their auditory undetectability, as stipulated by the FPAA's design.
 
-## Gradient Direction
+(1) Gradient Direction
 
 In our approach, to streamline the computation process, the Short-Time Fourier Transform (STFT) representation of the original audio is employed as the basis for calculating the gradient direction, denoted as $\mathcal{D}$.
 
@@ -40,7 +40,7 @@ $$
 
 Here, $t$ denotes the iteration number, and $\Pi_{x+\mathcal{S}}$ is a projection operation that ensures the adversarial example falls within the range $x+\mathcal{S}$.
 
-## Optimization with Masking Threshold
+(2) Optimization with Masking Threshold
 
 The optimization of the created perturbations $\delta$ culminates in the final psychoacoustic module, where we employ the following equation:
 
