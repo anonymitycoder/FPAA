@@ -50,15 +50,15 @@ $$
 \mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1}\sum _{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max (\{\bar{p} _\delta(k)-\theta_x(k), 0\})
 $$
 
-
-
 In this formula, $\bar{p}_\delta(k)$ is the normalized PSD estimation of the perturbation. The loss function $\mathcal{L}_\theta$ is designed to ensure that $\bar{p}_\delta(k)$ remains below the frequency masking threshold $\theta_x(k)$ of the original spectrum.
 
 The comprehensive loss function that guides our optimization is composed of two distinct parts:
 
 $$
-\mathcal{L}(x, y,\delta)=-\mathcal{L}_{nn}(x+\delta, y)+\alpha \cdot \mathcal{L}_\theta(x+\delta, \delta)
+\mathcal{L}(x, y,\delta)=-\mathcal{L}_ {nn}(x+\delta, y)+\alpha \cdot  \mathcal{L} _\theta(x+\delta, \delta)
 $$
+
+
 
 where $\alpha$ is a parameter that balances the significance of these two loss components, harmonizing the trade-off between the effectiveness of the adversarial perturbation and its imperceptibility within the psychoacoustic constraints.
 
