@@ -46,9 +46,10 @@ Here, $t$ denotes the iteration number, and $\Pi_{x+\mathcal{S}}$ is a projectio
 
 The optimization of the created perturbations $\delta$ culminates in the final psychoacoustic module, where we employ the following equation:
 
-$$
-\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \left\{\bar{p}_\delta(k)-\theta_x(k), 0\right\}
-$$
+\[
+\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \{\bar{p}_\delta(k)-\theta_x(k), 0\}
+\]
+
 
 
 
