@@ -41,7 +41,17 @@ python train_model.py --dataset Urban8K --model VGG13 --batch_size 32 --num_epoc
 
 We filter the ESC-50 dataset and store the results in the variable "esc_data". However, you need to filter the UrbanSound8K data set yourself. More specifically, in the UrbanSound8K dataset, please filter 50 data per category, while in the ESC-50 dataset, please select 10 data per category.
 
-## Generate adversarial examples
+
+## Getting threshold
+```
+cd FPAA
+python get_threshold.py --dataset Urban8K --psd_save_path urban_psd --sample_rate 22050 --window_size 2048
+python get_threshold.py --dataset esc-50 --psd_save_path esc_psd --sample_rate 22050 --window_size 2048
+```
+
+
+
+## Generating adversarial examples
 
 We use four attack algorithms to generate adversarial examples, including FGSM, BIM, PGD, and our proposed FPAA. The
 following is an example. If you run the method we proposed, you need to specify the values of lr_stage, num_iter_stage,
