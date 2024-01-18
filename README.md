@@ -16,9 +16,7 @@ In our approach, to streamline the computation process, the Short-Time Fourier T
 
 The methodology to ascertain $\mathcal{D}$ can be elucidated through the following mathematical expression:
 
-$$
-\mathcal{D} = \operatorname{sign}\left(\nabla_x \mathcal{L}_{nn}(x, y)\right)
-$$
+$$\mathcal{D} = \mathrm{sign}\left(\nabla_x \mathcal{L}_{nn}(x, y)\right)$$
 
 where $x$ represents the original spectral data, and $y$ signifies the actual label. The function $\mathcal{L}_{nn}(x,y)$ is the computational loss, and the application of the $\operatorname{sign}$ function is to determine the orientation of the gradient.
 
