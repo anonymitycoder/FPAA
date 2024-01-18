@@ -124,9 +124,46 @@ We have generated adversarial examples on the ESC-50 data set.
 ## Ablation experiment
 The following ablation experiments were performed on UrbanSound8K using VGG13 and VGG16. We add frequency curves, psychoacoustic models, and a combination of the two based on PGD. It can be seen that the effect we proposed is the best.
 
-|   Methods      | PGD   |        | PGD+Freqs |        | PGD+Psy   |        | PGD+Freqs+Psy   |        |
-|------------------------|-------|--------|-----------|--------|-----------|--------|-----------------|--------|
-|                       | SNR   |   STOI |SNR        |   STOI |SNR        |   STOI | SNR             | STOI   |
-| VGG13                | 30.28        | 0.9395| 30.39  | 0.9406 | 44.21  | 0.9657 | **44.53**  | **0.9657** |
-| VGG16                | 30.69        | 0.9402| 30.64  | 0.9411 | 44.37  | 0.9635 | **44.46**  | **0.9644** |
+<table>
+  <tr>
+    <th rowspan="2">Methods</th>
+    <th colspan="2">PGD</th>
+    <th colspan="2">PGD+Freqs</th>
+    <th colspan="2">PGD+Psy</th>
+    <th colspan="2">PGD+Freqs+Psy</th>
+  </tr>
+  <tr>
+    <td>SNR</td>
+    <td>STOI</td>
+    <td>SNR</td>
+    <td>STOI</td>
+    <td>SNR</td>
+    <td>STOI</td>
+    <td>SNR</td>
+    <td>STOI</td>
+  </tr>
+  <tr>
+    <td>VGG13</td>
+    <td>30.28</td>
+    <td>0.9395</td>
+    <td>30.39</td>
+    <td>0.9406</td>
+    <td>44.21</td>
+    <td>0.9657</td>
+    <td><strong>44.53</strong></td>
+    <td><strong>0.9657</strong></td>
+  </tr>
+  <tr>
+    <td>VGG16</td>
+    <td>30.69</td>
+    <td>0.9402</td>
+    <td>30.64</td>
+    <td>0.9411</td>
+    <td>44.37</td>
+    <td>0.9635</td>
+    <td><strong>44.46</strong></td>
+    <td><strong>0.9644</strong></td>
+  </tr>
+</table>
+
 
