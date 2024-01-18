@@ -8,6 +8,8 @@ This code is the submission for the anonymously submitted paper titled 'Boosting
 </div>
 # FreqPsy Attack Algorithm
 
+# FreqPsy Attack Algorithm
+
 The conceptual blueprint of our proposed methodology is depicted in Figure~\ref{framework}. We will delve into its intricate components in the ensuing chapters. Initially, the process involves the creation of a nascent adversarial example. This is achieved by synergizing frequency-aware weighting with a gradient-based technique for adversarial attacks, a vital characteristic of the FPAA. The adversarial samples crafted in this phase are finely tuned to align with the frequency perception nuances of the human auditory system, embodying the psychoacoustic principles central to our method. Following this, the focus shifts to refining these adversarial examples, enhancing their stealth, and ensuring their auditory undetectability, as stipulated by the FPAA's design.
 
 (1) Gradient Direction
@@ -16,9 +18,11 @@ In our approach, to streamline the computation process, the Short-Time Fourier T
 
 The methodology to ascertain $\mathcal{D}$ can be elucidated through the following mathematical expression:
 
-$$\mathcal{D} = \mathrm{sign}\left(\nabla_x \mathcal{L}_{nn}(x, y)\right)$$
+$$
+\mathcal{D} = \operatorname{sign}\left(\nabla_x \mathcal{L}_{nn}(x, y)\right)
+$$
 
-where $x$ represents the original spectral data, and $y$ signifies the actual label. The function $\mathcal{L}_{nn}(x,y)$ is the computational loss, and the application of the $\mathrm{sign}$ function is to determine the orientation of the gradient.
+where $x$ represents the original spectral data, and $y$ signifies the actual label. The function $\mathcal{L}_{nn}(x,y)$ is the computational loss, and the application of the $\operatorname{sign}$ function is to determine the orientation of the gradient.
 
 Our approach employs the human auditory threshold's A-weighting formula to ascertain frequency sensitivity. This method yields a set of weights reflecting the human ear's varying sensitivity across frequencies. We map these weights onto the perturbation range, denoted as $\mathcal{R}=[\varepsilon_{\text{min}}, \varepsilon_{\text{max}}]$, to determine their corresponding magnitudes. The formula below illustrates this process:
 
@@ -44,19 +48,20 @@ Here, $t$ denotes the iteration number, and $\Pi_{x+\mathcal{S}}$ is a projectio
 
 The optimization of the created perturbations $\delta$ culminates in the final psychoacoustic module, where we employ the following equation:
 
-$$ 
-\mathcal_{L}\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max {\bar{p}_\delta(k)-\theta_x(k), 0} 
 $$
-
+\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \{\bar{p}_\delta(k)-\theta_x(k), 0\}
+$$
 
 In this formula, $\bar{p}_\delta(k)$ is the normalized PSD estimation of the perturbation. The loss function $\mathcal{L}_\theta$ is designed to ensure that $\bar{p}_\delta(k)$ remains below the frequency masking threshold $\theta_x(k)$ of the original spectrum.
 
 The comprehensive loss function that guides our optimization is composed of two distinct parts:
 
-$$ \mathcal{L}_{\theta}(x, y, \delta) = -\mathcal{L}_{nn}(x + \delta, y) + \alpha \cdot \mathcal{L}_{\theta}(x + \delta, \delta) $$
-
+$$
+\mathcal{L}(x, y,\delta)=-\mathcal{L}_{nn}(x+\delta, y)+\alpha \cdot \mathcal{L}_\theta(x+\delta, \delta)
+$$
 
 where $\alpha$ is a parameter that balances the significance of these two loss components, harmonizing the trade-off between the effectiveness of the adversarial perturbation and its imperceptibility within the psychoacoustic constraints.
+
 
 
 ## Requirements
