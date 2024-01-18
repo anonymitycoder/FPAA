@@ -6,7 +6,6 @@ This code is the submission for the anonymously submitted paper titled 'Boosting
   <img src="framework.png" width="1000px" />
   <p>Framework of our FreqPsy Attack Algorithm</p>
 </div>
-# FreqPsy Attack Algorithm
 
 # FreqPsy Attack Algorithm
 
