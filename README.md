@@ -1,5 +1,5 @@
 # BOOSTING IMPERCEPTIBILITY OF ADVERSARIAL ATTACKS FOR ENVIRONMENTAL SOUND CLASSIFICATION
-
+\text{your_text_that_need_be_canceled_italics}
 This code is the submission for the anonymously submitted paper titled 'Boosting Imperceptibility of Adversarial Attacks for Environmental Sound Classification' to ICME2024.
 
 <div align="center">
@@ -46,9 +46,9 @@ Here, $t$ denotes the iteration number, and $\Pi_{x+\mathcal{S}}$ is a projectio
 
 The optimization of the created perturbations $\delta$ culminates in the final psychoacoustic module, where we employ the following equation:
 
-\[
-\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \{\bar{p}_\delta(k)-\theta_x(k), 0\}
-\]
+$$
+\mathcal{L}_\theta(x, \delta)=\frac{1}{\left\lfloor\frac{N}{2}\right\rfloor+1} \sum\_{k=0}^{\left\lfloor\frac{N}{2}\right\rfloor} \max \{\bar{p}_\delta(k)-\theta_x(k), 0\}
+$$
 
 
 
