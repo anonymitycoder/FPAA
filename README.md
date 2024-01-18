@@ -18,7 +18,7 @@ The methodology to ascertain $\mathcal{D}$ can be elucidated through the followi
 
 $$\mathcal{D} = \mathrm{sign}\left(\nabla_x \mathcal{L}_{nn}(x, y)\right)$$
 
-where $x$ represents the original spectral data, and $y$ signifies the actual label. The function $\mathcal{L}_{nn}(x,y)$ is the computational loss, and the application of the $\operatorname{sign}$ function is to determine the orientation of the gradient.
+where $x$ represents the original spectral data, and $y$ signifies the actual label. The function $\mathcal{L}_{nn}(x,y)$ is the computational loss, and the application of the $\mathrm{sign}$ function is to determine the orientation of the gradient.
 
 Our approach employs the human auditory threshold's A-weighting formula to ascertain frequency sensitivity. This method yields a set of weights reflecting the human ear's varying sensitivity across frequencies. We map these weights onto the perturbation range, denoted as $\mathcal{R}=[\varepsilon_{\text{min}}, \varepsilon_{\text{max}}]$, to determine their corresponding magnitudes. The formula below illustrates this process:
 
