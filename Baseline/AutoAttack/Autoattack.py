@@ -6,7 +6,7 @@ from autoattack.autopgd_base import APGDAttack
 from torchvision.models import densenet121
 import torch.nn as nn
 
-from model import VGG13, VGG16, GoogLeNet, DenseNet, resnet18, SB_CNN
+from model import VGG13, VGG16, GoogLeNet, DenseNet, SB_CNN
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
