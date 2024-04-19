@@ -88,7 +88,7 @@ def load_model(model_name, num_classes):
 
 def main(args,i):
     num_classes = 10 if args.dataset == 'UrbanSound8K' else 50
-    nums_sample = 25 if args.dataset == 'UrbanSound8K' else 10
+    nums_sample = 50 if args.dataset == 'UrbanSound8K' else 10
 
     model_names = ['SB_CNN']
     for model_name in model_names:
@@ -104,16 +104,14 @@ def main(args,i):
         for class_id in tqdm(range(num_classes), desc='Processing classes'):
             print(f'\nThe current class under attack is the {class_id}th class.')
 
-            test_data = torch.load(os.path.join('UrbanSound8K_data', f'class{class_id}', 'real', 'correct_real.pt'))[
-                        0:25]
+            test_data = torch.load(os.path.join('UrbanSound8K_data', f'class{class_id}', 'real', 'correct_real.pt'))
             test_labels = torch.load(
-                os.path.join('UrbanSound8K_data', f'class{class_id}', 'label', 'correct_labels.pt'))[0:25]
+                os.path.join('UrbanSound8K_data', f'class{class_id}', 'label', 'correct_labels.pt'))
 
             adv_audio = torch.load(
-                args.save_path + '/' + args.dataset + '/' + model_name + '/' + 'PGD' + '/' + f'class_{class_id}_adv_audio.pt')[
-                        0:25]
+                args.save_path + '/' + args.dataset + '/' + model_name + '/' + 'PGD' + '/' + f'class_{class_id}_adv_audio.pt')
 
-            th_batch = torch.load(f'{psd_path}/class{class_id}/th_batch.pt')[0:25]
+            th_batch = torch.load(f'{psd_path}/class{class_id}/th_batch.pt')
             th_batch = th_batch.to(device)
 
             psd_max_batch = torch.load(f'{psd_path}/class{class_id}\\psd_max_batch.pt')[0:25]
