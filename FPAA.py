@@ -37,22 +37,6 @@ def attack_stage(audios, model, labels, adv_distortion, th_batch, psd_max_batch,
         th_loss_output = th_loss_temp.cpu().detach().numpy()
         alpha_output = alpha.cpu().detach().numpy()
 
-        # for ii in range(nums_sample):
-        #     if predicted[ii] != labels[ii]:
-        #         if th_loss_temp[ii] < th_loss[ii]:
-        #             th_loss[ii] = th_loss_temp[ii]
-        #             final_alpha[ii] = alpha[ii]
-        #             final_adv2[ii] = new_input[ii]
-        #             print('==============================Attack Succeed!==============================')
-        #     if i % 20 == 0:
-        #         alpha[ii] *= 1.2
-        #     if i % 20 == 0 and predicted[ii] == labels[ii]:
-        #         alpha[ii] *= 0.8
-        #         alpha[ii] = max(alpha[ii], min_th)
-        #     print('Iteration [{}/{}], th_loss: {}, '
-        #           'alpha: {}'.format(ii + 1, i + 1, th_loss_output[ii], alpha_output[ii]))
-        #     if i == num_iter - 1 and (final_adv2[ii] == 0).all():
-        #         final_adv2[ii] = new_input[ii]
         for ii in range(nums_sample):
             if predicted[ii] != labels[ii]:
                 if th_loss_temp[ii] < th_loss[ii]:
@@ -60,11 +44,16 @@ def attack_stage(audios, model, labels, adv_distortion, th_batch, psd_max_batch,
                     final_alpha[ii] = alpha[ii]
                     final_adv2[ii] = new_input[ii]
                     print('==============================Attack Succeed!==============================')
-            print(
-                'Iteration [{}/{}], th_loss: {}, alpha: {}'.format(ii + 1, i + 1, th_loss_output[ii], alpha_output[ii]))
+            if i % 20 == 0:
+                alpha[ii] *= 1.2
+            if i % 20 == 0 and predicted[ii] == labels[ii]:
+                alpha[ii] *= 0.8
+                alpha[ii] = max(alpha[ii], min_th)
+            print('Iteration [{}/{}], th_loss: {}, '
+                  'alpha: {}'.format(ii + 1, i + 1, th_loss_output[ii], alpha_output[ii]))
             if i == num_iter - 1 and (final_adv2[ii] == 0).all():
                 final_adv2[ii] = new_input[ii]
-
+              
     return final_adv2, th_loss, final_alpha
 
 
