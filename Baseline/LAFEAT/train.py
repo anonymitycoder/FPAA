@@ -21,33 +21,26 @@ from pathlib import Path
 
 def train(trainloader, model, criterion, optimizer, model_lr, print_freq):
     model.train()
-    # 两个输出的平均损失计量器，注意这里我们只关心第一个输出的损失，因为最终输出的损失不用于优化
-    meters = [AverageMeter() for _ in range(1)]  # 只有一个额外输出的损失需要跟踪
+    meters = [AverageMeter() for _ in range(1)]
 
     for batch_idx, (data, labels) in enumerate(trainloader):
         data, labels = data.cuda(), labels.cuda()
-        all_outputs = model(data)  # 获取模型的所有输出
+        all_outputs = model(data)
 
-        # 使用最后一个输出（最终分类结果）的最大概率类别作为所有输出计算损失的"标签"
-        model_label = all_outputs[-1].max(1)[1].detach()  # 获取最大概率类别的索引
+        model_label = all_outputs[-1].max(1)[1].detach()
 
-        # 计算第一个输出（即新加卷积层的输出）的损失
         loss_xent = criterion(all_outputs[0], model_label)
 
         optimizer.zero_grad()
         loss_xent.backward()
         optimizer.step()
-
-        # 更新第一个输出的损失统计
+        
         meters[0].update(loss_xent.item(), labels.size(0))
 
-        # 打印训练进度
         if (batch_idx + 1) % print_freq == 0:
             print(f'Batch {batch_idx + 1}/{len(trainloader)}, Loss: {meters[0].avg:.3f}')
 
     model_lr.step()
-
-
 
 def test(model, testloader):
     model.eval()
@@ -68,8 +61,7 @@ def test(model, testloader):
 
     accs = corrects.float() / total
     return accs.cpu().numpy(), total
-
-
+    
 def load_model(model_name):
     model_mapping = {
         'VGG13': VGG13,
@@ -113,19 +105,17 @@ if __name__ == '__main__':
 
     torch.manual_seed(args.seed)
 
-    model_names = [
-                   'VGG16'
-                    ]
-    for model_ in model_names:
-        print(f"Processing model: {model_}")
+    model_names = ['VGG13','VGG16','DenseNet','GoogLeNet','SB_CNN']
+    for model_name in model_names:
+        print(f"Processing model: {model_name}")
         num_classes = 10 if args.dataset == 'UrbanSound8K' else 50
-        model_class = load_model(model_)
+        model_class = load_model(model_name)
         if model_class is None:
-            raise ValueError(f"Model {model_} not recognized.")
+            raise ValueError(f"Model {model_name} not recognized.")
 
-        model = Frozen_VGG16_esc50(model_class, num_classes=num_classes)
+        model = Frozen_VGG13_esc50(model_class, num_classes=num_classes)
 
-        model_path = f'E:/PyCharm_Projects/FPAA/model_weights/{model_}.pth' if num_classes == 10 else f'E:/PyCharm_Projects/FPAA/model_weights/{model_}_esc50.pth'
+        model_path = f'E:/PyCharm_Projects/FPAA/model_weights/{model_name}.pth' if num_classes == 10 else f'E:/PyCharm_Projects/FPAA/model_weights/{model_}_esc50.pth'
         model.load_frozen(model_path)
 
         criterion = nn.CrossEntropyLoss()
