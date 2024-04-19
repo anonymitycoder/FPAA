@@ -86,11 +86,11 @@ def load_model(model_name, num_classes):
     return model.to(device).eval()
 
 
-def main(args,i):
+def main(args):
     num_classes = 10 if args.dataset == 'UrbanSound8K' else 50
     nums_sample = 50 if args.dataset == 'UrbanSound8K' else 10
 
-    model_names = ['SB_CNN']
+    model_names = ['VGG13','VGG16','DenseNet','GoogLeNet','SB_CNN']
     for model_name in model_names:
         model = load_model(model_name, num_classes=num_classes)
         if args.dataset == 'UrbanSound8K':
@@ -114,27 +114,24 @@ def main(args,i):
             th_batch = torch.load(f'{psd_path}/class{class_id}/th_batch.pt')
             th_batch = th_batch.to(device)
 
-            psd_max_batch = torch.load(f'{psd_path}/class{class_id}\\psd_max_batch.pt')[0:25]
+            psd_max_batch = torch.load(f'{psd_path}/class{class_id}\\psd_max_batch.pt')
             # psd_max_batch = torch.stack(psd_max_batch)
             psd_max_batch = psd_max_batch.to(device)
 
             adv = adv_audio - test_data.clone()
             adv_example, th_loss, final_alpha = attack_stage(test_data, model, test_labels, adv, th_batch,
                                                              psd_max_batch, lr_stage2, nums_sample=nums_sample,
-                                                             num_iter=i)
+                                                             num_iter=1000)
 
             torch.save(adv_example, save_path / f'class_{class_id}_adv_audio.pt')
 
 
 if __name__ == '__main__':
-    for i in range(20, 201, 20):
-        parser = argparse.ArgumentParser(description='Adversarial attack on audio models')
-        parser.add_argument('--dataset', type=str, default='UrbanSound8K', choices=['UrbanSound8K', 'ESC-50'],
+      parser = argparse.ArgumentParser(description='Adversarial attack on audio models')
+      parser.add_argument('--dataset', type=str, default='UrbanSound8K', choices=['UrbanSound8K', 'ESC-50'],
                             help='Dataset name')
-        parser.add_argument('--epsilon', type=float, default=0.1, help='Epsilon value for the attack')
-        parser.add_argument('--save_path', type=str, default='adv_examples',
-                            help='Path to save adversarial examples')
-        parser.add_argument('--attack_method', type=str, default=f'alpha_FPAA_{i}_0.13',
-                            help='Attack method to use')
-        args = parser.parse_args()
-        main(args, i)
+      parser.add_argument('--epsilon', type=float, default=0.1, help='Epsilon value for the attack')
+      parser.add_argument('--save_path', type=str, default='adv_examples', help='Path to save adversarial examples')
+      parser.add_argument('--attack_method', type=str, default=f'FPAA', help='Attack method to use')
+      args = parser.parse_args()
+      main(args)
