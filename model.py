@@ -64,14 +64,11 @@ class VGG13(nn.Module):
             self._initialize_weights()
 
     def forward(self, x):
-        # 通过特征提取层
         for layer in self.features:
             x = layer(x)
         pooled_output = self.avgpool(x)
         flattened = torch.flatten(pooled_output, 1)
-        # 通过分类器前的全连接层
         before_last_fc_output = self.classifier[:-1](flattened)
-        # 最终输出
         final_output = self.classifier[-1](before_last_fc_output)
 
         if self.latent:
@@ -85,10 +82,8 @@ class VGG13(nn.Module):
                 nn.init.xavier_uniform_(m.weight)
                 if m.bias is not None:
                     nn.init.constant_(m.bias, 0)
-            # 如果是全连接层
             elif isinstance(m, nn.Linear):
                 nn.init.xavier_uniform_(m.weight)
-                # 将所有偏执置为0
                 nn.init.constant_(m.bias, 0)
 
 
@@ -160,51 +155,33 @@ class VGG16(nn.Module):
             self._initialize_weights()
 
     def forward(self, x):
-        # 通过特征提取层
         for layer in self.features:
             x = layer(x)
 
         if self.latent:
-            # 保存经过最后一个MaxPool后的特征图
             pooled_output = x
 
-            # 经过平均池化层
             x = self.avgpool(x)
             x = torch.flatten(x, 1)
-
-            # 保存最终的分类层前的输出
             before_classifier_output = x
 
-            # 通过分类器得到最终的输出
             final_output = self.classifier(x)
 
-            # 返回池化层输出、分类层前的输出和最终的分类输出
             return [pooled_output, before_classifier_output, final_output]
         else:
-            # 常规的前向传播，返回最终的分类结果
             x = self.avgpool(x)
             x = torch.flatten(x, 1)
             x = self.classifier(x)
             return x
 
     def _initialize_weights(self):
-        # 遍历网络中的每一层
-        # 继承nn.Module类中的一个方法:self.modules(), 他会返回该网络中的所有modules
         for m in self.modules():
-            # isinstance(object, type)：如果指定对象是指定类型，则isinstance()函数返回True
-            # 如果是卷积层
             if isinstance(m, nn.Conv2d):
-                # uniform_(tensor, a=0, b=1)：服从~U(a,b)均匀分布，进行初始化
                 nn.init.xavier_uniform_(m.weight)
-                # 如果偏置不是0，将偏置置成0，对偏置进行初始化
                 if m.bias is not None:
-                    # constant_(tensor, val)：初始化整个矩阵为常数val
                     nn.init.constant_(m.bias, 0)
-            # 如果是全连接层
             elif isinstance(m, nn.Linear):
-                # 正态分布初始化
                 nn.init.xavier_uniform_(m.weight)
-                # 将所有偏执置为0
                 nn.init.constant_(m.bias, 0)
 
 
@@ -275,7 +252,7 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        features = []  # 初始化特征列表
+        features = [] 
 
         x = self.conv1(x)
         x = self.bn1(x)
@@ -298,7 +275,6 @@ class ResNet(nn.Module):
         final_output = self.fc(x)
 
         if self.latent:
-            # 返回池化层输出、分类层前的输出和最终的分类输出
             return [pooled_output, before_classifier_output, final_output]
 
         return final_output
@@ -379,16 +355,16 @@ class GoogLeNet(nn.Module):
 
         x = self.inception3a(x)
         x = self.inception3b(x)
-        last_inception_output = x  # 最后一个Inception模块的输出
+        last_inception_output = x 
 
         x = self.maxpool3(x)
         x = self.inception4a(x)
 
-        pooled_output = self.avgpool(x)  # 全局平均池化层的输出
+        pooled_output = self.avgpool(x)
 
         x = torch.flatten(pooled_output, 1)
         x = self.dropout(x)
-        final_output = self.fc(x)  # 最终的全连接层输出
+        final_output = self.fc(x)
 
         if self.latent:
             return last_inception_output, pooled_output, final_output
@@ -416,20 +392,19 @@ class SB_CNN(nn.Module):
         features = []  # 初始化特征列表
 
         x = F.relu(self.pool(self.conv1(x)))
-        if self.latent: features.append(x)  # 第一个卷积层后的池化层输出作为第一个特征
+        if self.latent: features.append(x)
 
         x = F.relu(self.pool(self.conv2(x)))
-        # 在这里不再收集特征，因为我们要改变输出格式以适应新的需求
+
 
         x = F.relu(self.conv3(x))
-        # 保存最后一个卷积层的输出
-        if self.latent: pooled_output = x  # 第三个卷积层的输出作为池化输出
 
-        # 继续向前传播以获得分类之前的输出
+        if self.latent: pooled_output = x 
+
+
         x = x.view(-1, self.num_flat_features)
         x = self.dropout(x)
         x = F.relu(self.fc1(x))
-        # 保存分类层之前的输出
         if self.latent: before_classifier_output = x
 
         x = self.dropout(x)
@@ -437,19 +412,18 @@ class SB_CNN(nn.Module):
         final_output = F.log_softmax(x, dim=1)
 
         if self.latent:
-            # 现在返回池化输出、分类层之前的输出，以及最终分类输出
             return [pooled_output, before_classifier_output, final_output]
 
         return final_output
 
     def _get_conv_output(self, shape):
         original_latent = self.latent
-        self.latent = False  # 临时关闭latent模式以获取输出尺寸
+        self.latent = False 
         bs = 1
         input = torch.rand(bs, *shape)
         output_feat = self._forward_features(input)
         n_size = output_feat.data.view(bs, -1).size(1)
-        self.latent = original_latent  # 恢复latent模式的原始设置
+        self.latent = original_latent
         return n_size
 
     def _forward_features(self, x):
@@ -459,111 +433,16 @@ class SB_CNN(nn.Module):
         return x
 
 
-class RNN(nn.Module):
-    def __init__(self, input_size=1 * 1025 * 173, hidden_size=60, num_layers=1, num_classes=10):
-        super(RNN, self).__init__()
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size, self.hidden_size, self.num_layers, batch_first=True, dropout=0.2)
-        # self.gru = nn.GRU(input_size, self.hidden_size, self.num_layers, batch_first=True, dropout=0.2)
-        self.fc1 = nn.Linear(hidden_size, int(hidden_size / 2))
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(int(hidden_size / 2), int(hidden_size / 2))
-        self.fc3 = nn.Linear(int(hidden_size / 2), num_classes)
-
-    def forward(self, x):
-        x = x.float()
-        h0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size).float()).cuda()
-        c0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size).float()).cuda()
-        out, _ = self.lstm(x, (h0, c0))
-        out = self.relu(self.fc1(out[:, -1, :]))
-        out = self.relu(self.fc2(out))
-        out = self.fc3(out)
-        return out
-
-
-# def DenseNet(num_classes):
-#     model = densenet121(weights=None)
-#     model.features.conv0 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-#     num_ftrs = model.classifier.in_features
-#     model.classifier = nn.Linear(num_ftrs, num_classes)
-#     return model
-#
-#
-# class DenseNet(nn.Module):
-#     def __init__(self, num_classes, latent=False):
-#         super(DenseNet, self).__init__()
-#         self.latent = latent
-#         # 初始化DenseNet模型
-#         self.densenet = densenet121(weights=None)
-#         # 修改第一层卷积以接受单通道输入
-#         self.densenet.features.conv0 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-#         # 获取分类层之前的特征数量
-#         num_ftrs = self.densenet.classifier.in_features
-#         # 替换原有的分类器
-#         self.densenet.classifier = nn.Linear(num_ftrs, num_classes)
-#
-#     def forward(self, x):
-#         features = self.densenet.features(x)
-#         out = nn.functional.relu(features, inplace=True)
-#         out = nn.functional.adaptive_avg_pool2d(out, (1, 1))
-#         out = torch.flatten(out, 1)
-#         before_classifier = out.clone()  # 分类层之前的输出
-#
-#         out = self.densenet.classifier(out)
-#
-#         if self.latent:
-#             return features, before_classifier, out
-#         else:
-#             return out
-#
-# class DenseNet(nn.Module):
-#     def __init__(self, num_classes, latent=False):
-#         super(DenseNet, self).__init__()
-#         self.latent = latent
-#         # 初始化DenseNet模型
-#         self.densenet = densenet121(weights=None)
-#         # 修改第一层卷积以接受单通道输入
-#         self.densenet.features.conv0 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-#         # 获取分类层之前的特征数量
-#         num_ftrs = self.densenet.classifier.in_features
-#         # 替换原有的分类器为新的线性层
-#         self.densenet.classifier = nn.Linear(num_ftrs, num_classes)
-#
-#     def forward(self, x):
-#         # 通过DenseNet的特征提取部分
-#         features = self.densenet.features(x)
-#         out = F.relu(features, inplace=True)
-#         out = F.adaptive_avg_pool2d(out, (1, 1))
-#         out = torch.flatten(out, 1)
-#
-#         # 在latent模式下，保留分类器前的特征
-#         if self.latent:
-#             before_classifier = out.clone()
-#
-#         # 进行最终的分类
-#         out = self.densenet.classifier(out)
-#
-#         # 根据latent标志返回不同的输出
-#         if self.latent:
-#             return features, before_classifier, out
-#         else:
-#             return out
-
 class DenseNet(nn.Module):
     def __init__(self, num_classes=10, latent=False):
         super(DenseNet, self).__init__()
         self.latent = latent
-        # 使用DenseNet121作为基础模型
         self.densenet_base = densenet121(pretrained=False)
-        # 修改第一层卷积以接受单通道输入
         self.densenet_base.features.conv0 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3),
                                                       bias=False)
 
-        # 使用原始DenseNet121的分类器之前的特征提取部分
         self.features = self.densenet_base.features
 
-        # 自定义的全局平均池化和分类器
         self.pool = nn.AdaptiveAvgPool2d((1, 1))
         self.num_ftrs = self.densenet_base.classifier.in_features
         self.classifier = nn.Linear(self.num_ftrs, num_classes)
