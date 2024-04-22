@@ -11,11 +11,9 @@ class Frozen_VGG13_urban8k(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
         self.extra_conv = nn.Conv2d(512, 1024, kernel_size=3, padding=1).cuda()
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
 
-        # 添加全连接层来处理额外卷积层的输出
         self.extra_fc = nn.Linear(1024 * 3 * 3, num_classes).cuda()
 
     def load_frozen(self, filename):
@@ -47,11 +45,11 @@ class Frozen_VGG13_esc50(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
+
         self.extra_conv = nn.Conv2d(512, 1024, kernel_size=3, padding=1).cuda()
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
 
-        # 添加全连接层来处理额外卷积层的输出
+
         self.extra_fc = nn.Linear(1024 * 3 * 3, num_classes).cuda()
 
     def load_frozen(self, filename):
@@ -83,13 +81,11 @@ class Frozen_VGG16_urban8k(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
+
         self.extra_conv = nn.Conv2d(512, 1024, kernel_size=3, padding=1).cuda()
-        # 创建一个额外的池化层来减少特征图的空间维度
+
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
 
-        # 添加一个全连接层来处理额外卷积层的输出
-        # 注意：VGG16的最后一个卷积层输出的特征图大小是7x7，因此我们需要调整全连接层的输入特征数
         self.extra_fc = nn.Linear(1024 * 32, num_classes).cuda()
 
     def load_frozen(self, filename):
@@ -106,7 +102,7 @@ class Frozen_VGG16_urban8k(nn.Module):
     def forward(self, x):
         pooled_output, before_last_fc_output, final_output = self.frozen_model(x)
 
-        # 将输入传递给额外的卷积层和池化层
+
         x = self.extra_conv(pooled_output)
         x = F.relu(x)
         x = self.extra_pool(x)
@@ -125,13 +121,11 @@ class Frozen_VGG16_esc50(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
+
         self.extra_conv = nn.Conv2d(512, 1024, kernel_size=3, padding=1).cuda()
-        # 创建一个额外的池化层来减少特征图的空间维度
+
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
 
-        # 添加一个全连接层来处理额外卷积层的输出
-        # 注意：VGG16的最后一个卷积层输出的特征图大小是7x7，因此我们需要调整全连接层的输入特征数
         self.extra_fc = nn.Linear(49152, num_classes).cuda()
 
     def load_frozen(self, filename):
@@ -148,7 +142,6 @@ class Frozen_VGG16_esc50(nn.Module):
     def forward(self, x):
         pooled_output, before_last_fc_output, final_output = self.frozen_model(x)
 
-        # 将输入传递给额外的卷积层和池化层
         x = self.extra_conv(pooled_output)
         x = F.relu(x)
         x = self.extra_pool(x)
@@ -393,11 +386,9 @@ class Frozen_DenseNet_urban8k(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
         self.extra_conv = nn.Conv2d(1024, 1024, kernel_size=3, padding=1).cuda()
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
 
-        # 添加全连接层来处理额外卷积层的输出
         self.extra_fc = nn.Linear(32768, num_classes).cuda()
 
     def load_frozen(self, filename):
@@ -429,11 +420,8 @@ class Frozen_DenseNet_esc50(nn.Module):
             p.requires_grad = False
         self.frozen_model = nn.DataParallel(model)
 
-        # 在初始化时创建所有可能需要的卷积层
         self.extra_conv = nn.Conv2d(1024, 1024, kernel_size=3, padding=1).cuda()
         self.extra_pool = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
-
-        # 添加全连接层来处理额外卷积层的输出
         self.extra_fc = nn.Linear(49152, num_classes).cuda()
 
     def load_frozen(self, filename):
