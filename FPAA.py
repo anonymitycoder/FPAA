@@ -73,7 +73,6 @@ def load_model(model_name, num_classes):
     if model_class is None:
         raise ValueError(f"Model {model_name} not recognized.")
 
-    # 根据模型名字和数据集类型加载模型
     if model_name == 'SB_CNN' and args.dataset == 'ESC-50':
         model = model_class(bands=216, num_labels=num_classes)
     elif model_name == 'SB_CNN' and args.dataset != 'ESC-50':
