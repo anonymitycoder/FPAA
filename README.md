@@ -59,7 +59,7 @@ $$
 
 
 
-where $\alpha$ is a parameter that balances the significance of these two loss components, harmonizing the trade-off between the effectiveness of the adversarial perturbation and its imperceptibility within the psychoacoustic constraints.
+where $\alpha$ is a parameter that balances the importance of these two loss components, reconciling the trade-off between the effectiveness of the adversarial perturbation and its imperceptibility under psychoacoustic constraints. During the perturbation optimization process, if the generated adversarial samples are enough to make the model classify incorrectly, the weight alpha will increase. On the contrary, if the attack fails, the value will decrease. The optimization process is iterated a total of \emph{I} times.
 
 
 
