@@ -118,4 +118,3 @@ in the method we proposed).
 python run_attack.py --dataset Urban8K --model VGG13 --epsilon 0.1 --attack_method PGD_freq --save_path adv_example
 python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter_stage 500 --epsilon 0.1 --attack_method PGD_freq_psy --save_path adv_example --alpha 0.07
 ```
-We have generated adversarial examples on the ESC-50 data set.
