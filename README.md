@@ -115,8 +115,6 @@ and alpha. The other methods do not need to be specifically specified (because t
 in the method we proposed).
 
 ```
-python run_attack.py --dataset Urban8K --model VGG13 --epsilon 0.1 --attack_method BIM --save_path adv_example
-python run_attack.py --dataset Urban8K --model VGG13 --epsilon 0.1 --attack_method PGD --save_path adv_example
 python run_attack.py --dataset Urban8K --model VGG13 --epsilon 0.1 --attack_method PGD_freq --save_path adv_example
 python run_attack.py --dataset Urban8K --model VGG13 --lr_stage 0.001 --num_iter_stage 500 --epsilon 0.1 --attack_method PGD_freq_psy --save_path adv_example --alpha 0.07
 ```
