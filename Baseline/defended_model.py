@@ -2,11 +2,8 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
-# from utils import *
-
-# ensemble manner of multiple defenses
-sequential = 'sequential'  # model(d_n(...d_2(d_(x))))
-average = 'average'  # average(model(d_(x)), ..., model(d_n(x)))
+sequential = 'sequential'
+average = 'average'
 
 
 class defended_model(nn.Module):
