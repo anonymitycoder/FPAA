@@ -3,7 +3,7 @@
 This code is the submission for the anonymously submitted paper titled 'Boosting Imperceptibility of Adversarial Attacks for Environmental Sound Classification' for ICTAI 2024
 
 <div align="center">
-  <img src="framework.png" width="1000px" />
+  <img src="framework_latest.png" width="1000px" />
   <p>Framework of our FreqPsy Attack Algorithm</p>
 </div>
 
