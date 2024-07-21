@@ -2,11 +2,8 @@
 
 This code is the submission for the anonymously submitted paper titled 'Boosting Imperceptibility of Adversarial Attacks for Environmental Sound Classification'.
 
-<div align="center">
-  <img src="framework.png" width="1000px" />
-  <p>Framework of our FreqPsy Attack Algorithm</p>
-</div>
 
+![image](framework.png)
 # FreqPsy Attack Algorithm
 
 The conceptual blueprint of our proposed methodology is depicted in Figure~\ref{framework}. We will delve into its intricate components in the ensuing chapters. Initially, the process involves the creation of a nascent adversarial example. This is achieved by synergizing frequency-aware weighting with a gradient-based technique for adversarial attacks, a vital characteristic of the FPAA. The adversarial samples crafted in this phase are finely tuned to align with the frequency perception nuances of the human auditory system, embodying the psychoacoustic principles central to our method. Following this, the focus shifts to refining these adversarial examples, enhancing their stealth, and ensuring their auditory undetectability, as stipulated by the FPAA's design.
