@@ -672,14 +672,13 @@ if __name__ == '__main__':
     for batch in test_loader:
         x, y = batch
         x=x.unsqueeze(1)
-        x, y = x.to(device), y.to(device)  # 确保将数据转移到相同的设备上
+        x, y = x.to(device), y.to(device)
         adver, success = attacker.attack(x, y)
         accuracy = test(model, adver, y, device)
         total_accuracy += accuracy
         num_batches += 1
 
         print(success)
-        # 计算SNR和STOI
         adver_np = adver.cpu().numpy()
         origin_np = x.cpu().numpy()
         snr = calculate_snr(origin_np, adver_np)
@@ -706,38 +705,5 @@ if __name__ == '__main__':
     print(f'Average accuracy: {average_accuracy:.4f}%')
     print(f'Average SNR: {average_snr:.4f} dB')
     print(f'Average STOI: {average_stoi:.4f}')
-
-    # train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-    # test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
-
-    # for i in range(0, num_folders):
-    #     data_path = f'data/class{i}/data/data.pt'
-    #     labels_path = f'data/class{i}/labels/labels.pt'
-    #     origin = torch.load(data_path)
-    #     testorigin = origin.clone()
-    #     true = torch.load(labels_path)
-    #     adver, success = attacker.attack(origin, true)
-    #     accuracy = test(model, adver, true, device)
-    #     # 计算SNR和STOI
-    #     adver_np = adver.cpu().numpy()
-    #     origin_np = testorigin.cpu().numpy()
-    #     snr = calculate_snr(origin_np, adver_np)
-    #     stoi_scores = []
-    #     for j in range(origin_np.shape[0]):
-    #         orig_sample = origin_np[j, 0, :]
-    #         adv_sample = adver_np[j, 0, :]
-    #         stoi_score = calculate_stoi(orig_sample, adv_sample)
-    #         stoi_scores.append(stoi_score)
-    #
-    #     avg_stoi_score = np.mean(stoi_scores)
-    #
-    #     print(f'Folder {i} accuracy: {accuracy:.4f}%')
-    #     print(f'Folder {i} SNR: {snr:.4f} dB')
-    #     print(f'Folder {i} STOI: {avg_stoi_score:.4f}')
-    #
-    #     total_accuracy += accuracy
-    #     total_snr += snr
-    #     total_stoi += avg_stoi_score
-    #
 
     #
